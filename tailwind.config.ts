@@ -9,8 +9,25 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        surface: "#FFFFFF",
+        primary: {
+          default: "#FFDD59",
+          hover: "#FFFCEF",
+        },
+        muted: "#9CA3AF",
+        dice: {
+          first: "#FF4035",
+          second: "#4D66F3",
+        },
+      },
+      keyframes: {
+        "slide-in-from-left": {
+          "0%": { transform: "translateX(-30%)" },
+          "100%": { transform: "translateX(0)" },
+        },
+      },
+      animation: {
+        "slide-in-from-left": "slide-in-from-left 0.2s ease-out",
       },
     },
   },
