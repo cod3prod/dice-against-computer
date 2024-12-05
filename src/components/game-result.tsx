@@ -7,7 +7,7 @@ export default function GameResult() {
   const { state: scoreState } = useScore();
   const [doIWin, setDoIWin] = useState(false);
   const { resetScore, checkReset } = useScore();
-  const { resetDice, checkDice } = useDice();
+  const { resetDice } = useDice();
 
   useEffect(() => {
     if (scoreState.myScore === scoreState.targetScore) {

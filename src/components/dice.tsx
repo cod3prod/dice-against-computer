@@ -15,17 +15,17 @@ const Dice = React.memo(
   ({ dice, className }: { dice: number; className: string }) => {
     const renderDice = () => {
       switch (dice) {
-        case 0:
-          return <FaDiceOne className={twMerge("w-28 h-28", className)} />;
         case 1:
-          return <FaDiceTwo className={twMerge("w-28 h-28", className)} />;
+          return <FaDiceOne className={twMerge("w-28 h-28", className)} />;
         case 2:
-          return <FaDiceThree className={twMerge("w-28 h-28", className)} />;
+          return <FaDiceTwo className={twMerge("w-28 h-28", className)} />;
         case 3:
-          return <FaDiceFour className={twMerge("w-28 h-28", className)} />;
+          return <FaDiceThree className={twMerge("w-28 h-28", className)} />;
         case 4:
-          return <FaDiceFive className={twMerge("w-28 h-28", className)} />;
+          return <FaDiceFour className={twMerge("w-28 h-28", className)} />;
         case 5:
+          return <FaDiceFive className={twMerge("w-28 h-28", className)} />;
+        case 6:
           return <FaDiceSix className={twMerge("w-28 h-28", className)} />;
         default:
           return <FaDiceOne className={twMerge("w-28 h-28", className)} />;
@@ -38,5 +38,7 @@ const Dice = React.memo(
     return prevProps.dice === nextProps.dice;
   }
 );
+
+Dice.displayName = 'Dice';
 
 export default Dice;
