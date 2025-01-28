@@ -1,3 +1,42 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --color-surface: #ffffff;
+
+  --color-primary-default: #ffdd59;
+  --color-primary-hover: #fffcef;
+
+  --color-muted: #9ca3af;
+
+  --color-dice-first: #ff4035;
+  --color-dice-second: #4d66f3;
+
+  --animate-slide-in-from-left: slide-in-from-left 0.2s ease-out;
+
+  @keyframes slide-in-from-left {
+    0% {
+      transform: translateX(-30%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}

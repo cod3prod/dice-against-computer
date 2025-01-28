@@ -32,7 +32,7 @@ export default function Modal({
   }, [scoreState.myScore, scoreState.comScore, scoreState.targetScore]);
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-black/50">
       <div className="relative w-64 bg-surface p-4 rounded-lg">
         <div
           className="absolute top-5 right-4 cursor-pointer hover:text-muted"
