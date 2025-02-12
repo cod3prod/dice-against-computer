@@ -3,11 +3,7 @@
 import Button from "./button";
 import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  checkReset,
-  resetScore,
-  updateScore,
-} from "@/store/slices/score-slice";
+import { resetScore, updateScore } from "@/store/slices/score-slice";
 import { checkDice, resetDice, rollDice } from "@/store/slices/dice-slice";
 
 export default function GameController() {
@@ -35,9 +31,8 @@ export default function GameController() {
   const handleReset = useCallback(() => {
     dispatch(resetDice());
     dispatch(resetScore());
-    dispatch(checkReset());
     dispatch(checkDice());
-  }, [resetDice, resetScore, checkReset, checkDice, dispatch]);
+  }, [resetDice, resetScore, checkDice, dispatch]);
 
   const handleDice = useCallback(() => {
     dispatch(checkDice());

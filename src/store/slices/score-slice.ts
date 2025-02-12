@@ -22,13 +22,10 @@ const scoreSlice = createSlice({
             state.myScore = 0;
             state.comScore = 0;
             state.targetScore = 5;
-            state.checkReset = false;
+            state.checkReset = !state.checkReset;
         },
-        checkReset: (state) => {
-            state.checkReset = state.checkReset!;
-        }
     }
 })
 
-export const { setTargetScore, updateScore, resetScore, checkReset } = scoreSlice.actions;
+export const { setTargetScore, updateScore, resetScore } = scoreSlice.actions;
 export default scoreSlice.reducer;

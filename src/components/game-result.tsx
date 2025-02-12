@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Button from "./button";
 import { useEffect, useState } from "react";
 import { resetDice } from "@/store/slices/dice-slice";
-import { checkReset, resetScore } from "@/store/slices/score-slice";
+import { resetScore } from "@/store/slices/score-slice";
 
 export default function GameResult() {
   const [doIWin, setDoIWin] = useState(false);
@@ -24,7 +24,6 @@ export default function GameResult() {
   const handleReset = () => {
     dispatch(resetDice());
     dispatch(resetScore());
-    dispatch(checkReset());
   };
 
   return (
