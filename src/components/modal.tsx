@@ -1,8 +1,10 @@
+"use client";
+
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import SetTargetScore from "./set-target-score";
 import { RiCloseLargeLine } from "react-icons/ri";
-import useScore from "@/hooks/use-score";
 import GameResult from "./game-result";
+import { useSelector } from "react-redux";
 
 export default function Modal({
   setIsModalOpen,
@@ -11,15 +13,14 @@ export default function Modal({
 }) {
   const [onSetting, setOnSetting] = useState(true);
   const [onResult, setOnResult] = useState(false);
-  const { state: scoreState } = useScore();
+  const { myScore, comScore, targetScore } = useSelector(
+    (state: RootState) => state.score
+  );
 
   useEffect(() => {
-    const score = scoreState;
-
     if (
-      (score.myScore === score.targetScore ||
-        score.comScore === score.targetScore) &&
-      score.targetScore !== 0
+      (myScore === targetScore || comScore === targetScore) &&
+      targetScore !== 0
     ) {
       setOnResult(true);
       setOnSetting(false);
@@ -29,10 +30,10 @@ export default function Modal({
     }
 
     setOnSetting(true);
-  }, [scoreState.myScore, scoreState.comScore, scoreState.targetScore]);
+  }, [myScore, comScore, targetScore]);
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/50">
+    <div className="fixed z-50 inset-0 flex items-center justify-center bg-black/50">
       <div className="relative w-64 bg-surface p-4 rounded-lg">
         <div
           className="absolute top-5 right-4 cursor-pointer hover:text-muted"

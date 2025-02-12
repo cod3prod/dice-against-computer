@@ -1,3 +1,5 @@
+"use client";
+
 import { memo } from "react";
 
 const LogItem = memo(function LogItem({ log }: { log: string }) {

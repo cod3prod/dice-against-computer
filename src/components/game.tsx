@@ -3,25 +3,24 @@
 import { useEffect, useState } from "react";
 import Board from "./board";
 import Modal from "./modal";
-import useScore from "@/hooks/use-score";
 import DiceLog from "./dice-log";
+import { useSelector } from "react-redux";
 
 export default function Game() {
   const [isModalOpen, setIsModalOpen] = useState(true);
-  const { state: scoreState } = useScore();
+  const { myScore, comScore, targetScore, checkReset } = useSelector(
+    (state: RootState) => state.score
+  );
 
   useEffect(() => {
-    if (
-      scoreState.myScore === scoreState.targetScore ||
-      scoreState.comScore === scoreState.targetScore
-    ) {
+    if (myScore === targetScore || comScore === targetScore) {
       setIsModalOpen(true);
     }
-  }, [scoreState.myScore, scoreState.comScore, scoreState.targetScore]);
+  }, [myScore, comScore, targetScore, setIsModalOpen]);
 
   useEffect(() => {
     setIsModalOpen(true);
-  }, [scoreState.checkReset]);
+  }, [checkReset, setIsModalOpen]);
 
   return (
     <main className="p-4 flex-1 flex flex-col items-center justify-start gap-4">

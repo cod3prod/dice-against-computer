@@ -1,6 +1,9 @@
-import useScore from "@/hooks/use-score";
+"use client";
+
+import { useDispatch } from "react-redux";
 import Button from "./button";
 import { useState, Dispatch, SetStateAction } from "react";
+import { setTargetScore } from "@/store/slices/score-slice";
 
 export default function SetTargetScore({
   setIsModalOpen,
@@ -8,14 +11,14 @@ export default function SetTargetScore({
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
 }) {
   const [inputScore, setInputScore] = useState("5");
-  const { setTargetScore } = useScore();
+  const dispatch = useDispatch();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputScore(e.target.value);
   };
 
   const handleConfirm = () => {
-    setTargetScore(parseInt(inputScore));
+    dispatch(setTargetScore(Number(inputScore)));
     setIsModalOpen(false);
   };
 

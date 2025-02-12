@@ -1,47 +1,57 @@
-import useScore from "@/hooks/use-score";
+"use client";
+
 import Button from "./button";
-import useDice from "@/hooks/use-dice";
 import { useCallback, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  checkReset,
+  resetScore,
+  updateScore,
+} from "@/store/slices/score-slice";
+import { checkDice, resetDice, rollDice } from "@/store/slices/dice-slice";
 
 export default function GameController() {
-  const { state: diceState, rollDice, resetDice, checkDice } = useDice();
-  const { state: scoreState, updateScore, resetScore, checkReset } = useScore();
+  const { myDice, comDice } = useSelector((state: RootState) => state.dice);
+  const { myScore, comScore, targetScore } = useSelector(
+    (state: RootState) => state.score
+  );
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (
-      (scoreState.myScore === scoreState.targetScore ||
-        scoreState.comScore === scoreState.targetScore) &&
-      scoreState.targetScore !== 0
+      (myScore === targetScore || comScore === targetScore) &&
+      targetScore !== 0
     ) {
       return;
     }
 
-    if (diceState.myDice > diceState.comDice && scoreState.targetScore !== 0) {
-      updateScore(scoreState.myScore + 1, scoreState.comScore);
-    } else if (
-      diceState.myDice < diceState.comDice &&
-      scoreState.targetScore !== 0
-    ) {
-      updateScore(scoreState.myScore, scoreState.comScore + 1);
+    if (myDice > comDice && targetScore !== 0) {
+      dispatch(updateScore({ myScore: myScore + 1, comScore: comScore }));
+    } else if (myDice < comDice && targetScore !== 0) {
+      dispatch(updateScore({ myScore: myScore, comScore: comScore + 1 }));
     }
-  }, [diceState]);
+  }, [myDice, comDice, dispatch]);
 
   const handleReset = useCallback(() => {
-    resetDice();
-    resetScore();
-    checkReset();
-    checkDice();
-  }, [resetDice, resetScore, checkReset, checkDice]);
+    dispatch(resetDice());
+    dispatch(resetScore());
+    dispatch(checkReset());
+    dispatch(checkDice());
+  }, [resetDice, resetScore, checkReset, checkDice, dispatch]);
 
   const handleDice = useCallback(() => {
-    checkDice();
-    rollDice();
+    dispatch(checkDice());
+    dispatch(rollDice());
   }, [checkDice, rollDice]);
 
   return (
     <div className="flex items-center justify-center gap-2">
-      <Button onClick={handleDice} className="w-20">ROLL</Button>
-      <Button onClick={handleReset} className="w-20">RESET</Button>
+      <Button onClick={handleDice} className="w-20">
+        ROLL
+      </Button>
+      <Button onClick={handleReset} className="w-20">
+        RESET
+      </Button>
     </div>
   );
 }
